@@ -1,0 +1,14 @@
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\INOA-DESAFIO-BT.exe
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\INOA-DESAFIO-BT.deps.json
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\INOA-DESAFIO-BT.runtimeconfig.json
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\INOA-DESAFIO-BT.dll
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\INOA-DESAFIO-BT.pdb
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.AssemblyInfoInputs.cache
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.AssemblyInfo.cs
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.csproj.CoreCompileInputs.cache
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.dll
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\refint\INOA-DESAFIO-BT.dll
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.pdb
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.genruntimeconfig.cache
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\ref\INOA-DESAFIO-BT.dll
