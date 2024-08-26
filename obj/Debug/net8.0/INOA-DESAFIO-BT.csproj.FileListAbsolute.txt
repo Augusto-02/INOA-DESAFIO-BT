@@ -13,3 +13,8 @@ C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DE
 C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.genruntimeconfig.cache
 C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\ref\INOA-DESAFIO-BT.dll
 C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.sourcelink.json
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\Quartz.dll
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\bin\Debug\net8.0\Quartz.Jobs.dll
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.csproj.AssemblyReference.cache
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DES.C7B5BF4E.Up2Date

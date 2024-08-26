@@ -4,15 +4,51 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Quartz;
+using Quartz.Impl;
+using System;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
+namespace Inoa
+{
+      
 class Program
 {
       static async Task Main(){
-          var user =  getUserInformation();
-          var price = await getActivePrices(user.active);
-          string comparation = emailValidation(price, user.buyValue, user.sellValue);
-          List<string> fileEmail = ReadFile();
-          
+            List<string> fileEmail = ReadFile();
+            var user =  getUserInformation();
+            // Grab the Scheduler instance from the Factory
+            StdSchedulerFactory factory = new StdSchedulerFactory();
+            IScheduler scheduler = await factory.GetScheduler();
+
+            await scheduler.Start();
+            var jobDataMap = new JobDataMap();
+            jobDataMap["active"] = user.active;
+            jobDataMap["buyValue"] = user.buyValue;
+            jobDataMap["sellValue"] = user.sellValue;
+
+            IJobDetail job = JobBuilder.Create<ActiveJob>()
+                .WithIdentity("job1", "group1")
+                .SetJobData(jobDataMap)
+                .Build();
+
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("trigger1", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInSeconds(10)
+                    .RepeatForever())
+                .Build();
+
+            await scheduler.ScheduleJob(job, trigger);
+
+            await Task.Delay(TimeSpan.FromSeconds(60));
+
+            await scheduler.Shutdown();
+
+            Console.WriteLine("Press any key to close the application");
+            Console.ReadKey();
       }
       
       static (string active, int buyValue, int sellValue ) getUserInformation() {
@@ -47,6 +83,7 @@ class Program
                   decimal price = 0;
                   try
                   {        
+                        Console.WriteLine(active);
                         HttpResponseMessage response = await client.GetAsync($"https://brapi.dev/api/quote/{active}?modules=summaryProfile&token=rQAmrzQdzbNxLddDqxrn4A");
                         response.EnsureSuccessStatusCode();
                         string responseData = await response.Content.ReadAsStringAsync();
@@ -65,6 +102,7 @@ class Program
             }
 
            static string emailValidation (decimal price, int buyValue, int sellValue){
+            Console.WriteLine(price);
             if(price <= buyValue){
                   Console.WriteLine("Comprar");
                   return "Comprar";
@@ -74,7 +112,7 @@ class Program
                   return "Vender";
             
             }
-
+            
             return "";
            }
 
@@ -92,7 +130,22 @@ class Program
             }
             return list;
            }
+           public class ActiveJob : IJob
+    {
+        public async Task Execute(IJobExecutionContext context)
+        {
+            string active = context.JobDetail.JobDataMap.GetString("active");
+            int buyValue = context.JobDetail.JobDataMap.GetInt("buyValue");
+            int sellValue  = context.JobDetail.JobDataMap.GetInt("sellValue");
+            var price = await getActivePrices(active);
+            string comparation = emailValidation(price, buyValue, sellValue);
+            Console.WriteLine($"Parametros {active}, {buyValue}, {sellValue}, {comparation}");
+        }
+    }
+
 }
+ 
 
-//int.Parse(response.results[0].regularMarketPrice)
+ }
 
+// 

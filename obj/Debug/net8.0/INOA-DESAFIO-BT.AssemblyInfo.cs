@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("INOA-DESAFIO-BT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ddb332171e4a1495f26cae182667ca40770aeb9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea8b62a1c8e4cec2ddb686c4074bf1d30161418e")]
 [assembly: System.Reflection.AssemblyProductAttribute("INOA-DESAFIO-BT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("INOA-DESAFIO-BT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
