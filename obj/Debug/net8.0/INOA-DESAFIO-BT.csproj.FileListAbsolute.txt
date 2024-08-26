@@ -12,3 +12,4 @@ C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\refint\
 C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.pdb
 C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.genruntimeconfig.cache
 C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\ref\INOA-DESAFIO-BT.dll
+C:\Users\Augusto\Desktop\Faculdade\INOA\INOA-DESAFIO-BT\obj\Debug\net8.0\INOA-DESAFIO-BT.sourcelink.json

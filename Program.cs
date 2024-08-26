@@ -1,13 +1,18 @@
 ﻿
-
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 class Program
 {
-      static void Main(){
+      static async Task Main(){
           var user =  getUserInformation();
-          Console.WriteLine(user.buyValue);
+          var price = await getActivePrices(user.active);
+          string comparation = emailValidation(price, user.buyValue, user.sellValue);
           
       }
-
+      
       static (string active, int buyValue, int sellValue ) getUserInformation() {
             string active =""; 
             int buyValue = 0;
@@ -34,7 +39,43 @@ class Program
             return (active, buyValue, sellValue);
             
             }
+
+            static readonly HttpClient client = new HttpClient();
+            static async Task<decimal> getActivePrices (string active){
+                  decimal price = 0;
+                  try
+                  {        
+                        HttpResponseMessage response = await client.GetAsync($"https://brapi.dev/api/quote/{active}?modules=summaryProfile&token=rQAmrzQdzbNxLddDqxrn4A");
+                        response.EnsureSuccessStatusCode();
+                        string responseData = await response.Content.ReadAsStringAsync();
+                        JsonNode data = JsonNode.Parse(responseData);
+                        JsonNode root = data.Root;
+                        JsonArray result = root["results"]!.AsArray();
+                        JsonValue prices = result[0]?["regularMarketPrice"].AsValue();
+                        price = (decimal)prices;
+                        return price;
+                  }
+                  catch (HttpRequestException e)
+                  {
+                    Console.WriteLine($"Erro na requisição: {e.Message}");
+                  }
+                  return price;
+            }
+
+           static string emailValidation (decimal price, int buyValue, int sellValue){
+            if(price <= buyValue){
+                  Console.WriteLine("Comprar");
+                  return "Comprar";
+            }
+            else if (price >= sellValue ){
+                  Console.WriteLine("Vender");
+                  return "Vender";
+            
+            }
+
+            return "";
+           }
 }
 
-
+//int.Parse(response.results[0].regularMarketPrice)
 
