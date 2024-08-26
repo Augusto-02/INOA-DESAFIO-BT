@@ -9,6 +9,9 @@ using Quartz.Impl;
 using System;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
+using System;
+using System.Net;
+using System.Net.Mail;
 
 namespace Inoa
 {
@@ -83,7 +86,7 @@ class Program
                   decimal price = 0;
                   try
                   {        
-                        Console.WriteLine(active);
+                        Console.WriteLine($"{active} +1 request");
                         HttpResponseMessage response = await client.GetAsync($"https://brapi.dev/api/quote/{active}?modules=summaryProfile&token=rQAmrzQdzbNxLddDqxrn4A");
                         response.EnsureSuccessStatusCode();
                         string responseData = await response.Content.ReadAsStringAsync();
@@ -130,6 +133,31 @@ class Program
             }
             return list;
            }
+
+            static void sendEmail (){
+                  MailMessage mailMessage = new MailMessage();
+                  mailMessage.From = new MailAddress("augustonodari@gmail.com");
+                  mailMessage.To.Add("augustonodari@poli.ufrj.br");
+                  mailMessage.Subject = "Subject";
+                  mailMessage.Body = "This is a test email sent using C#.Net";
+                  SmtpClient smtpClient = new SmtpClient();
+                  smtpClient.Host = "smtp.maileroo.com";
+                  smtpClient.Port = 587;
+                  smtpClient.UseDefaultCredentials = false;
+                  smtpClient.Credentials = new NetworkCredential("SenderEmail", " SenderPassword");
+                  smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                  smtpClient.EnableSsl = true;
+                  try
+                  {
+                        smtpClient.Send(mailMessage);
+                        Console.WriteLine("Email Sent Successfully.");
+                  }
+                  catch (Exception ex)
+                  {
+                        Console.WriteLine("Error: " + ex.Message);
+                  } 
+            }
+
            public class ActiveJob : IJob
     {
         public async Task Execute(IJobExecutionContext context)
