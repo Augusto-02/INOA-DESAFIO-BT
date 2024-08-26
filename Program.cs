@@ -4,12 +4,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+
 class Program
 {
       static async Task Main(){
           var user =  getUserInformation();
           var price = await getActivePrices(user.active);
           string comparation = emailValidation(price, user.buyValue, user.sellValue);
+          List<string> fileEmail = ReadFile();
           
       }
       
@@ -74,6 +76,21 @@ class Program
             }
 
             return "";
+           }
+
+           static List<string> ReadFile () {
+            List <string> list =[""];
+            try
+            {
+                  string data = File.ReadAllText("text.txt");
+                  list = data.Split("\r\n").ToList();
+                  Console.WriteLine(list[1]);
+            }
+            catch (System.Exception e)
+            {
+                  Console.WriteLine($"Ocorreu um erro: {e.Message}");
+            }
+            return list;
            }
 }
 
