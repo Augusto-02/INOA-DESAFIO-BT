@@ -12,6 +12,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 
 namespace Inoa
 {
@@ -19,7 +20,6 @@ namespace Inoa
 class Program
 {
       static async Task Main(){
-            List<string> fileEmail = ReadFile();
             var user =  getUserInformation();
             // Grab the Scheduler instance from the Factory
             StdSchedulerFactory factory = new StdSchedulerFactory();
@@ -86,7 +86,6 @@ class Program
                   decimal price = 0;
                   try
                   {        
-                        Console.WriteLine($"{active} +1 request");
                         HttpResponseMessage response = await client.GetAsync($"https://brapi.dev/api/quote/{active}?modules=summaryProfile&token=rQAmrzQdzbNxLddDqxrn4A");
                         response.EnsureSuccessStatusCode();
                         string responseData = await response.Content.ReadAsStringAsync();
@@ -105,13 +104,10 @@ class Program
             }
 
            static string emailValidation (decimal price, int buyValue, int sellValue){
-            Console.WriteLine(price);
-            if(price <= buyValue){
-                  Console.WriteLine("Comprar");
+            if(price < buyValue){
                   return "Comprar";
             }
-            else if (price >= sellValue ){
-                  Console.WriteLine("Vender");
+            else if (price > sellValue ){
                   return "Vender";
             
             }
@@ -125,7 +121,7 @@ class Program
             {
                   string data = File.ReadAllText("text.txt");
                   list = data.Split("\r\n").ToList();
-                  Console.WriteLine(list[1]);
+                 
             }
             catch (System.Exception e)
             {
@@ -134,28 +130,37 @@ class Program
             return list;
            }
 
-            static void sendEmail (){
-                  MailMessage mailMessage = new MailMessage();
-                  mailMessage.From = new MailAddress("augustonodari@gmail.com");
-                  mailMessage.To.Add("augustonodari@poli.ufrj.br");
-                  mailMessage.Subject = "Subject";
-                  mailMessage.Body = "This is a test email sent using C#.Net";
-                  SmtpClient smtpClient = new SmtpClient();
-                  smtpClient.Host = "smtp.maileroo.com";
-                  smtpClient.Port = 587;
-                  smtpClient.UseDefaultCredentials = false;
-                  smtpClient.Credentials = new NetworkCredential("SenderEmail", " SenderPassword");
-                  smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                  smtpClient.EnableSsl = true;
-                  try
-                  {
-                        smtpClient.Send(mailMessage);
-                        Console.WriteLine("Email Sent Successfully.");
-                  }
-                  catch (Exception ex)
-                  {
-                        Console.WriteLine("Error: " + ex.Message);
-                  } 
+            static void sendEmail (List<string> list, string mensagem){
+            try
+            {
+                string senha = "qzpq ilcy ltuk kiwu";
+
+                MailMessage mailMessage = new MailMessage("augustonodari@gmail.com", list[3])
+                {
+                    Subject = list[1],
+                    IsBodyHtml = true,
+                    Body = $"<p>{mensagem}</p>",
+                    SubjectEncoding = Encoding.UTF8,
+                    BodyEncoding = Encoding.UTF8
+                };
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", int.Parse(list[2]))
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(list[0], senha),
+                    EnableSsl = true
+                };
+
+                smtpClient.Send(mailMessage);
+
+                Console.WriteLine("Seu email foi enviado com sucesso! :)");
+            }
+            catch (SmtpException smtpEx)
+            {
+                Console.WriteLine($"Erro de SMTP: {smtpEx.Message}");
+            }
+           
+        
             }
 
            public class ActiveJob : IJob
@@ -165,9 +170,15 @@ class Program
             string active = context.JobDetail.JobDataMap.GetString("active");
             int buyValue = context.JobDetail.JobDataMap.GetInt("buyValue");
             int sellValue  = context.JobDetail.JobDataMap.GetInt("sellValue");
+            List<string> fileEmail = ReadFile();
             var price = await getActivePrices(active);
             string comparation = emailValidation(price, buyValue, sellValue);
-            Console.WriteLine($"Parametros {active}, {buyValue}, {sellValue}, {comparation}");
+            if (comparation == "Comprar"){
+                  sendEmail(fileEmail, $"Chegou o momento de comprar a sua ação da {active} o preço é {price}!!");
+            }
+            else if (comparation == "Vender"){
+                  sendEmail(fileEmail, $"Chegou o momento de vender a sua ação da {active} o preço é {price}!!");
+            }
         }
     }
 
@@ -176,4 +187,18 @@ class Program
 
  }
 
-// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
