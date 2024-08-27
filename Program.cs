@@ -133,7 +133,7 @@ class Program
             static void sendEmail (List<string> list, string mensagem){
             try
             {
-                string senha = "qzpq ilcy ltuk kiwu";
+                string senha = "";
 
                 MailMessage mailMessage = new MailMessage("augustonodari@gmail.com", list[3])
                 {
